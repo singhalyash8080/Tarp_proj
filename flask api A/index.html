@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    
+    <h1>Chat app (Welcome A)</h1>
+
+    <button onclick="connect()">Connect to B</button>
+
+    <div>
+        <br>
+        <input type="text" id="input">
+
+        <button onclick = "send()">Send mssg</button>
+    </div>
+
+    <br><br>
+        
+    <button onclick="receive()">Receive mssg</button>
+
+    <div class="mssgs"></div>
+
+</body>
+
+<script>
+
+    const url = 'http://127.0.0.1:5000'
+
+
+    function connect() {
+
+        fetch(url+'/connect', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+
+            alert(data.mssg)
+        })
+    }
+
+    function send() {
+        const msg = $("#input").val();
+
+
+        fetch(url+'/sendData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                plaintext: msg
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+        })
+
+        $(".mssgs").append("<p>" + "A: " + msg + "</p>");
+        
+        console.log(msg)
+    }
+
+    function receive() {
+
+        fetch(url+'/receiveData', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .then(data => {
+            console.log(data);
+            $(".mssgs").append("<p>" + "B: " + data.mssg + "</p>");
+        })
+
+    }
+
+</script>
+</html>
