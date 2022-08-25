@@ -7,7 +7,8 @@ https://www.youtube.com/embed/50W82G6kmsk
 
 # Creators
 
-- Shreya Verma
-- Arshita Marwaha
+- Akshat Jain
 - Mansi Singh
 - Yash Singhal
+- Priyanshu Verma
+- Ishma Banu
